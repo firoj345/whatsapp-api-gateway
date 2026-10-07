@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "whatsapp-gateway": {
+      "command": "npm",
+      "args": ["run", "mcp"],
+      "env": {
+        "ADMIN_API_KEY": "wag_live_admin_secret_key_demo_12345",
+        "MCP_GATEWAY_URL": "http://127.0.0.1:3000"
+      }
+    }
+  }
+}

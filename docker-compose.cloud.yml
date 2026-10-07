@@ -1,0 +1,62 @@
+version: '3.8'
+
+# ==========================================================
+# Cloud-Connected Docker Compose (Neon PostgreSQL + Standalone/Upstash)
+# Use this when your database is already hosted in the cloud (e.g. Neon, Supabase)
+# ==========================================================
+
+services:
+  # Fastify WhatsApp Gateway Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: whatsapp_backend
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+      - BASE_URL=${BASE_URL:-http://localhost:3000}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:-whatsapp-super-secret-key-32-chars!}
+      - ADMIN_API_KEY=${ADMIN_API_KEY:-wag_live_admin_secret_key_demo_12345}
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - MEDIA_STORAGE_PATH=/app/data/media
+      - SESSION_STORAGE_PATH=/app/data/sessions
+    volumes:
+      - backend_data:/app/data
+    networks:
+      - whatsapp_network
+
+  # Next.js 14 Dashboard Frontend
+  frontend:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL:-http://localhost:3000}
+    container_name: whatsapp_frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-3001}:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL:-http://localhost:3000}
+    depends_on:
+      - backend
+    networks:
+      - whatsapp_network
+
+volumes:
+  backend_data:
+    driver: local
+
+networks:
+  whatsapp_network:
+    driver: bridge

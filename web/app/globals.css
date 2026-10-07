@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#F0F2F5] text-[#111B21] font-sans antialiased selection:bg-[#00A884]/25 selection:text-[#008069];
+    background-color: #F0F2F5;
+    color: #111B21;
+  }
+}
+
+/* WhatsApp Card & Panel Styles */
+.glass-panel {
+  background: #FFFFFF;
+  border: 1px solid #E9EDEF;
+  box-shadow: 0 1px 3px 0 rgba(11, 20, 26, 0.05);
+}
+
+.glass-card {
+  background: #FFFFFF;
+  border: 1px solid #E9EDEF;
+  box-shadow: 0 1px 3px 0 rgba(11, 20, 26, 0.05);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: #00A884;
+  box-shadow: 0 4px 12px 0 rgba(11, 20, 26, 0.08);
+}
+
+/* WhatsApp Chat Wallpaper Background with subtle doodle texture */
+.wa-chat-bg {
+  background-color: #EFEAE2;
+  background-image: 
+    radial-gradient(#d3cbbe 0.75px, transparent 0.75px),
+    radial-gradient(#d3cbbe 0.75px, #EFEAE2 0.75px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+/* Scrollbar in WhatsApp Clean Style */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CED0D1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00A884;
+}

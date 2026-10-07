@@ -1,0 +1,12 @@
+node_modules
+dist
+data/sessions
+data/media
+.git
+.github
+.env
+.env.local
+npm-debug.log
+web
+bin
+tests
